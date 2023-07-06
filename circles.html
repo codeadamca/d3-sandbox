@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+
+<title>D3.js Samples - Circles</title>
+    
+<style>
+
+body {
+    background-color: #333;
+    margin: 0;
+}
+
+circle {
+    fill: none;
+    stroke-width: 3px;
+}
+    
+rect {
+    fill: none;
+    pointer-events: all;
+}
+    
+</style>
+    
+</head>
+<body>
+    
+<script src="https://d3js.org/d3.v5.min.js"></script>
+    
+<script>
+    
+// https://bl.ocks.org/d3noob/1ea51d03775b9650e8dfd03474e202fe
+
+var width = window.innerWidth,
+    height = window.innerHeight;
+
+var svg = d3.select("body")
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
+    
+function updateWindow(){
+    x = window.innerWidth || 
+        document.clientWidth;
+    y = window.innerHeight|| 
+        document.clientHeight;
+
+    svg.attr("width", x).attr("height", y);
+}
+d3.select(window).on('resize.updatesvg', updateWindow);
+    
+    
+svg.append("rect")
+    .attr("width", width)
+    .attr("height", height)
+    .on("mousemove", drawCircle);
+
+var i = 0;
+    
+function drawCircle()
+{
+    // console.log( "MOVE DETECTED!" );
+    
+    var mouse = d3.mouse(this);
+    
+    // console.log(mouse);
+    
+    svg.insert("circle","rect")
+        .attr("cx",mouse[0])
+        .attr("cy",mouse[1])
+        .attr("r",1)
+        .style("stroke", d3.hsl((i = (i + 1) % 360), 1, 0.5))
+        .transition()
+        .duration(500)
+        .ease(d3.easeSin)
+        .attr("r",100)
+        // .attr("cx",Math.random()*width)
+        .transition()
+        .duration(2000)
+        // .ease(d3.easeBounce)
+        .attr("r",1)
+        // .attr("cy",height-5)
+        // .style("opacity", 0)  
+        .remove()
+    ;
+    
+    d3.event.preventDefault();
+    
+}
+    
+</script>
+    
+</body>
+</html>
