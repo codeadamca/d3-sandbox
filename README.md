@@ -1,4 +1,4 @@
-# d3-sandbox
+# D3 Sandbox
 
 A sandbox for messing around with D3.
 
